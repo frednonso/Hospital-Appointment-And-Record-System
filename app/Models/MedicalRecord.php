@@ -16,8 +16,8 @@ class MedicalRecord extends Model
         "symptoms",
         "treatment_plan",
         "medications",
-        "record_date"
-
+        "record_date",
+        "attachment_path"
     ];
     
     

@@ -11,7 +11,7 @@ class CreateMedicalRecordRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,7 +30,8 @@ class CreateMedicalRecordRequest extends FormRequest
             'symptoms' => 'nullable|string|max:1000',
             'treatment_plan' => 'nullable|string|max:2000',
             'medications' => 'nullable|string|max:1000',
-            'record_date' => 'required|date|before_or_equal:today'
+            'record_date' => 'required|date|before_or_equal:today',
+            'attachment' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048'
         ];
     }
 }

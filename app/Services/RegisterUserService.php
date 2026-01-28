@@ -2,7 +2,11 @@
 
 namespace App\Services;
 
+use App\Mail\WelcomeEmail;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+
+
 use App\Repositories\Contracts\RegisterUserRepositoryInterface;
 
 
@@ -17,7 +21,11 @@ class RegisterUserService {
 
     public function registerUser(array $data) {
         
-        return $this->registerUserRepository->create($data);
+        $user = $this->registerUserRepository->create($data);
+
+        Mail::to($user)->queue(new WelcomeEmail($user));
+
+        return $user;
 
     }
 

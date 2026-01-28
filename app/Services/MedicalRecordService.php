@@ -35,8 +35,13 @@ class MedicalRecordService
             throw new AuthorizationException('Only doctors can create medical records');
         }
 
-        return $this->medicalRecordRepository->create($data);
+        if (isset($data['attachment'])) {
+            $path = \Illuminate\Support\Facades\Storage::disk('public')->put('medical_records', $data['attachment']);
+            $data['attachment_path'] = $path;
+            unset($data['attachment']);
+        }
 
+        return $this->medicalRecordRepository->create($data);
     }
 
 

@@ -30,7 +30,7 @@ class MedicalRecordController extends Controller
 
 
         return response()->json([
-            "sucess" => true,
+            "success" => true,
             "message" => "medical record created succesfully",
             "data" => $response
         ]);
@@ -67,7 +67,7 @@ class MedicalRecordController extends Controller
         $response = $this->medicalRecordService->getPatientRecords($data->patient_id, $request->user());
 
         return response()->json([
-            "sucess" => true,
+            "success" => true,
             "message" => "Patients medical record viewed succesfully",
             "data" => $response
         ]);
@@ -80,7 +80,7 @@ class MedicalRecordController extends Controller
         $response = $this->medicalRecordService->getPatientRecords($request->user()->id, $request->user());
 
         return response()->json([
-            "sucess" => true,
+            "success" => true,
             "message" => "Your medical record viewed succesfully",
             "data" => $response
         ]);
