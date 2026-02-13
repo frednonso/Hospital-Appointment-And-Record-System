@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Services\AuthService;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+
 
 
 class AuthController extends Controller
 {
     //
+
+    use ApiResponse;
+
+
     protected $authService;
 
     public function __construct(AuthService $authService)
@@ -27,20 +33,15 @@ class AuthController extends Controller
 
         $result = $this->authService->login($data);
 
-        return response()->json([
-            "success" => true,
-            "message" => "User logged In",
-            "Data" => $result
-        ]);
+
+        return $this->successResponse($result, "User logged In");
     }
 
     public function logout(Request $request)
     {
         $this->authService->logout($request->user());
 
-        return response()->json([
-            "success" => true,
-            'message' => 'Logged out from all devices'
-        ]);
+
+        return $this->successResponse(null, 'Logged out from all devices');
     }
 }

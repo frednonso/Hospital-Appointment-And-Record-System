@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Services\RegisterUserService;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+
 
 
 class RegisterUserController extends Controller
 {
+
+    use ApiResponse;
+
+
     protected $registerService;
     //
 
@@ -24,10 +30,7 @@ class RegisterUserController extends Controller
 
         $response = $this->registerService->registerUser($data);
 
-        return response()->json([
-            "success" => true,
-            "message" => "User Created Successfully",
-            "data" => $response
-        ]);
+
+        return $this->successResponse($response, "User Created Successfully");
     }
 }

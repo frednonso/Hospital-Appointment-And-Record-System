@@ -5,20 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateMedicalRecordRequest;
 use App\Http\Requests\DoctorsMedicalRecordViewRequest;
 use App\Services\MedicalRecordService;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+
 
 
 
 class MedicalRecordController extends Controller
 {
     //
+    use ApiResponse;
 
     protected $medicalRecordService;
 
     public function __construct(MedicalRecordService $medicalRecordService)
     {
         $this->medicalRecordService = $medicalRecordService;
-
     }
 
     public function create(CreateMedicalRecordRequest $request)
@@ -29,11 +31,7 @@ class MedicalRecordController extends Controller
         $response = $this->medicalRecordService->createMedicalRecord($data, $request->user());
 
 
-        return response()->json([
-            "success" => true,
-            "message" => "medical record created succesfully",
-            "data" => $response
-        ]);
+        return $this->successResponse($response, "medical record created succesfully");
     }
 
     public function update(Request $request, int $id)
@@ -49,14 +47,7 @@ class MedicalRecordController extends Controller
 
         $medicalRecord = $this->medicalRecordService->updateMedicalRecord($id, $validated, $request->user());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Medical record updated successfully',
-            'data' => $medicalRecord
-        ], 200);
-
-
-
+        return $this->successResponse($medicalRecord, 'Medical record updated successfully');
     }
 
     public function Doctorsview(DoctorsMedicalRecordViewRequest $request)
@@ -66,11 +57,7 @@ class MedicalRecordController extends Controller
 
         $response = $this->medicalRecordService->getPatientRecords($data->patient_id, $request->user());
 
-        return response()->json([
-            "success" => true,
-            "message" => "Patients medical record viewed succesfully",
-            "data" => $response
-        ]);
+        return $this->successResponse($response, "Patients medical record viewed succesfully");
     }
 
 
@@ -79,14 +66,7 @@ class MedicalRecordController extends Controller
 
         $response = $this->medicalRecordService->getPatientRecords($request->user()->id, $request->user());
 
-        return response()->json([
-            "success" => true,
-            "message" => "Your medical record viewed succesfully",
-            "data" => $response
-        ]);
 
-
+        return $this->successResponse($response, "Your medical record viewed succesfully");
     }
-
-
 }

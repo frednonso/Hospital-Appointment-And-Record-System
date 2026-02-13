@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Services\DashboardService;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class DashboardController extends Controller
 {
     //
+    use ApiResponse;
+
+
     protected $dashboardService;
 
     public function __construct(DashboardService $dashboardService)
@@ -22,13 +27,7 @@ class DashboardController extends Controller
 
         $dasbBoardData = $this->dashboardService->getDashboardData(Auth::user());
 
-        return response()->json([
-            'success' => true,
-            "message" => "Dashboard retrieved successfully",
-            'data' => $dasbBoardData
-        ]);
 
+        return $this->successResponse($dasbBoardData, "Dashboard retrieved successfully");
     }
-
-
 }
