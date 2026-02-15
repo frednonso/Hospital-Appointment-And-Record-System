@@ -41,6 +41,8 @@ class MedicalRecordService
             unset($data['attachment']);
         }
 
+        $data["doctor_id"] = $user->id;
+
         return $this->medicalRecordRepository->create($data);
     }
 

@@ -24,7 +24,7 @@ class CreateMedicalRecordRequest extends FormRequest
         return [
             //
             'patient_id' => 'required|integer|exists:users,id',
-            'doctor_id' => 'required|integer|exists:users,id',
+            // 'doctor_id' => 'required|integer|exists:users,id',
             'title' => 'required|string|max:255',
             'diagnosis' => 'nullable|string|max:1000',
             'symptoms' => 'nullable|string|max:1000',
